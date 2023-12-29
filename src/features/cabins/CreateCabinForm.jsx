@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -15,7 +13,6 @@ function CreateCabinForm() {
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
-  console.log(errors);
 
   const { isLoading: isCreating, mutate } = useMutation({
     mutationFn: createCabin,
@@ -28,7 +25,7 @@ function CreateCabinForm() {
     },
   });
   function onSubmit(data) {
-    mutate(data);
+    mutate({...data, image : data.image[0]});
   }
   function onError(error) {
     // console.log(error)
@@ -94,7 +91,11 @@ function CreateCabinForm() {
         />
       </RowForm>
       <RowForm label="Cabin photo" error={errors?.image}>
-        <FileInput id="image" accept="image/*" />
+        <FileInput id="image" accept="image/*"
+        {...register("image", {
+          required: "this field is required",
+        })}
+        />
       </RowForm>
       <RowForm>
         <Button variation="secondary" type="reset">
