@@ -26,15 +26,18 @@ function UpdateSettingsForm() {
   return (
     <Form>
       <RowForm label="Minimum nights/booking">
-        <Input type="number" id="min-nights" defaultValue={minBookingLength} onBlur={(e)=>handleUpdate(e,'minBookingLength')}/>
+        <Input type="number" id="min-nights"
+        disabled={isUpdating} defaultValue={minBookingLength} onBlur={(e)=>handleUpdate(e,'minBookingLength')}/>
       </RowForm>
       <RowForm label="Maximum nights/booking">
-        <Input type="number" id="max-nights" defaultValue={maxBookingLength} onBlur={(e)=>handleUpdate(e,'maxBookingLength')} />
+        <Input type="number" id="max-nights"
+        disabled={isUpdating} defaultValue={maxBookingLength} onBlur={(e)=>handleUpdate(e,'maxBookingLength')} />
       </RowForm>
       <RowForm label="Maximum guests/booking">
         <Input
           type="number"
           id="max-guests"
+          disabled={isUpdating}
           defaultValue={MaxNumberOfGuestPerBooking} onBlur={(e)=>handleUpdate(e,'MaxNumberOfGuestPerBooking')}
         />
       </RowForm>
@@ -42,6 +45,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="breakfast-price"
+          disabled={isUpdating}
           defaultValue={breakFastPrice} onBlur={(e)=>handleUpdate(e,'breakFastPrice')}
         />
       </RowForm>

@@ -9,7 +9,7 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import RowForm from "../../ui/RowForm";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { isCreating, CreateCabin } = useCreateCabin();
   const { isEditing, editCabin } = useEditCabin();
   const { id: editId, ...editValues } = cabinToEdit;
@@ -26,14 +26,20 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       editCabin(
         { newCabinData: { ...data, image }, id: editId },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     else
       CreateCabin(
         { ...data, image: image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
   }
@@ -41,7 +47,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     // console.log(error)
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type = {onCloseModal ? 'modal' : 'regular'}>
       <RowForm label="Cabin name" error={errors?.name}>
         <Input
           disabled={isWorking}
@@ -116,7 +122,11 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         />
       </RowForm>
       <RowForm>
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>
