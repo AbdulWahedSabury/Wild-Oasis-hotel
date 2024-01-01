@@ -3,6 +3,7 @@ import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+// import Menus from "../../ui/Menus";
 
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
@@ -20,13 +21,12 @@ function CabinTable() {
           <div>Discount</div>
           <div></div>
         </Table.Header>
-
         <Table.Body
           data={cabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
-    </Menus>
+     </Menus>
   );
 }
 

@@ -6,6 +6,7 @@ import { useDeleteCabin } from "./useDeleteCabin";
 import { HiOutlinePencil, HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Menus from "../../ui/Menus";
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -58,29 +59,33 @@ function CabinRow({ cabin }) {
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{discount}</Discount>
         <div>
-          <Modal>
-            <Modal.Open opens="edit">
-              <button disabled={isDeleting}>
-                <HiPencil />
-              </button>
-            </Modal.Open>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={cabinId} />
+
+            <Menus.List id={cabinId}>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
             <Modal.Window name="edit">
-              <CreateCabinForm editId={cabin.id} cabinToEdit={cabin} />
+              <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
 
-            <Modal.Open opens="delete">
-              <button>
-                <HiTrash />
-              </button>
-            </Modal.Open>
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName="cabin"
-                onConfirm={() => deleteCabin(cabinId)}
+                resourceName="cabins"
                 disabled={isDeleting}
+                onConfirm={() => deleteCabin(cabinId)}
               />
             </Modal.Window>
-          </Modal>
+          </Menus.Menu>
+        </Modal>
         </div>
       </TableRow>
     </>
