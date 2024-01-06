@@ -11,7 +11,7 @@ function Cabins() {
         <Heading as="h1">All cabins</Heading>
         <CabinsTableOperations />
       </Row>
-      <Row>
+      <Row type="vertical">
         <CabinTable />
         <AddCabin />
       </Row>

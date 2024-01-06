@@ -41,7 +41,7 @@ function BookingRow({
     startDate,
     endDate,
     numNights,
-    numGuests,
+    numberOfGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
