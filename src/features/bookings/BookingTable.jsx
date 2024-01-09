@@ -4,6 +4,7 @@ import Menus from "../../ui/Menus";
 import { useBookings } from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
 
@@ -15,7 +16,7 @@ function BookingTable() {
   const [filed, direction] = sortByRow.split("-")
   const sortBy = {filed, direction}
 
-  const {bookings, isLoading, error} = useBookings({filter, sortBy});
+  const {bookings, isLoading, error, count} = useBookings({filter, sortBy});
 
   if(isLoading) return <Spinner />
   return (
@@ -36,6 +37,9 @@ function BookingTable() {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );
