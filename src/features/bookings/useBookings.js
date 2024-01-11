@@ -5,8 +5,8 @@ import { getBookings } from "../../services/apiBookings";
 import { useQuery } from "@tanstack/react-query";
 import { PER_PAGE } from "../../utils/constants";
 export function useBookings({ filter, sortBy }) {
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
 

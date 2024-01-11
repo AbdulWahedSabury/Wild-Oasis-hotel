@@ -8,18 +8,17 @@ export async function getBookings({ filter, sortBy, page }) {
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
     ,{count : 'exact'});
-
-  // Filter
-  if (filter) query = query.eq(filter.filed, filter.value);
-  // Sort
-  if (sortBy)
-    query = query.order(sortBy.filed, {
-      ascending: sortBy.direction === "asc",
-    });
-  const from = (page - 1) * PER_PAGE + 1;
-  const to = from + PER_PAGE - 1;
-  // Pagination
-  if (page) query = query.range(from, to);
+    const from = (page - 1) * PER_PAGE + 1;
+    const to = from + PER_PAGE - 1;
+    // Pagination
+    if (page) query = query.range(from, to);
+    // Filter
+    if (filter) query = query.eq(filter.filed, filter.value);
+    // Sort
+    if (sortBy)
+      query = query.order(sortBy.filed, {
+        ascending: sortBy.direction === "asc",
+      });
 
   const { error, data, count } = await query;
 
