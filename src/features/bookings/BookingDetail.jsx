@@ -12,6 +12,7 @@ import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -23,15 +24,15 @@ function BookingDetail() {
   const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
-
+  const {checkout, isCheckingOut} = useCheckout();
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
   };
 
-  if (isLoading) return <Spinner />
-  const {status, id : bookingId} = booking;
+  if (isLoading) return <Spinner />;
+  const { status, id: bookingId } = booking;
   return (
     <>
       <Row type="horizontal">
@@ -45,9 +46,15 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-      <Button onClick={()=> navigate(`/checkIn/${bookingId}`)}>
-            Check in  
+        {status === "unconfirmed" && (
+          <Button onClick={() => navigate(`/checkIn/${bookingId}`)}>
+            Check in
           </Button>
+        )}
+        {status === "checked-in" && (
+          <Button disabled={isCheckingOut} onClick={() => checkout(bookingId)}>Check out</Button>
+        )}
+
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

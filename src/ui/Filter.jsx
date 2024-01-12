@@ -41,6 +41,7 @@ function Filter({ filterValue, operations }) {
     searchParams.get(filterValue) || operations.at(0).value;
 
   function handleFilter(value) {
+    if(searchParams.get('page')) searchParams.set('page', 1)
     searchParams.set(filterValue, value);
     setSearchParams(searchParams);
   }
