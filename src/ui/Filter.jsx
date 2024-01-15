@@ -47,13 +47,14 @@ function Filter({ filterValue, operations }) {
   }
   return (
     <StyledFilter>
-      {operations.map((item) => (
+      {operations.map((option) => (
         <FilterButton
-          key={item.value}
-          onClick={() => handleFilter(item.value)}
-          active={currentFilterValue === item.value ? 'true' : ''}
+          key={option.value}
+          onClick={() => handleFilter(option.value)}
+          active={option.value === currentFilterValue}
+          disabled={option.value === currentFilterValue}
         >
-          {item.label}
+          {option.label}
         </FilterButton>
       ))}
     </StyledFilter>
