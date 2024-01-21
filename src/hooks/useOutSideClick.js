@@ -12,7 +12,7 @@ export function useOutSideClick(handler, listenerCapturing = true){
       document.addEventListener('click', clickHandler, listenerCapturing)
   
       return ()=> document.removeEventListener('click', clickHandler, listenerCapturing);
-    },[handler])
+    },[handler,listenerCapturing])
     
     return ref;
 }

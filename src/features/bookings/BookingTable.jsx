@@ -16,7 +16,7 @@ function BookingTable() {
   const [filed, direction] = sortByRow.split("-")
   const sortBy = {filed, direction}
 
-  const {bookings, isLoading, error, count} = useBookings({filter, sortBy});
+  const {bookings, isLoading, count} = useBookings({filter, sortBy});
 
   if(isLoading) return <Spinner />
   return (
